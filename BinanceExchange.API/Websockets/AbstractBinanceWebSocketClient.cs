@@ -79,6 +79,14 @@ namespace BinanceExchange.API.Websockets
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
+        
+        public Guid ConnectToTickerWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceSymbolTickerData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
+            Logger.Debug("Connecting to Ticker Web Socket");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@ticker");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
 
         /// <summary>
         /// Connect to thePartial Book Depth Streams
@@ -137,6 +145,7 @@ namespace BinanceExchange.API.Websockets
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@aggTrade");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
+
 
         /// <summary>
         /// Connect to the UserData WebSocket
